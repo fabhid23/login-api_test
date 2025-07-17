@@ -1,0 +1,110 @@
+### Login API - Exemplos de Teste
+
+### 1. Health Check
+GET http://localhost:3000/health
+
+### 2. Informações da API
+GET http://localhost:3000/
+
+### 3. Login com Sucesso
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario@teste.com",
+  "senha": "Senha123!"
+}
+
+### 4. Login com Senha Inválida
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario@teste.com",
+  "senha": "senha_errada"
+}
+
+### 5. Login com Email Inválido
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "email_inexistente@teste.com",
+  "senha": "Senha123!"
+}
+
+### 6. Verificar Status da Conta
+GET http://localhost:3000/api/auth/status/usuario@teste.com
+
+### 7. Recuperar Senha
+POST http://localhost:3000/api/auth/recuperar-senha
+Content-Type: application/json
+
+{
+  "email": "usuario@teste.com",
+  "dataNascimento": "1990-05-15",
+  "nomePai": "João Silva",
+  "nomeMae": "Maria Silva"
+}
+
+### 8. Recuperar Senha com Dados Inválidos
+POST http://localhost:3000/api/auth/recuperar-senha
+Content-Type: application/json
+
+{
+  "email": "usuario@teste.com",
+  "dataNascimento": "1990-05-15",
+  "nomePai": "Nome Errado",
+  "nomeMae": "Maria Silva"
+}
+
+### 9. Resetar Tentativas (para testes)
+POST http://localhost:3000/api/auth/reset-tentativas
+Content-Type: application/json
+
+{
+  "email": "usuario@teste.com"
+}
+
+### 10. Verificar Token (requer token válido)
+GET http://localhost:3000/api/auth/verificar-token
+Authorization: Bearer SEU_TOKEN_AQUI
+
+### 11. Teste de Rate Limiting - Múltiplas tentativas de login
+# Execute este comando várias vezes rapidamente para testar o rate limiting
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario@teste.com",
+  "senha": "senha_errada"
+}
+
+### 12. Teste de Validação - Email inválido
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "email_invalido",
+  "senha": "Senha123!"
+}
+
+### 13. Teste de Validação - Senha muito curta
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario@teste.com",
+  "senha": "123"
+}
+
+### 14. Teste de Validação - Campos obrigatórios
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario@teste.com"
+}
+
+### 15. Teste de Endpoint não encontrado
+GET http://localhost:3000/api/endpoint-inexistente 
